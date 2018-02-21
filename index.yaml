@@ -3,11 +3,20 @@ entries:
   products:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-02-20T22:19:48.510249-05:00
+    created: 2018-02-21T08:35:01.078208-05:00
     description: A Helm chart for Kubernetes
-    digest: af9e669d8186e44f82d7b9dca34103eeb83a55cf248456c388b9f5945e5c498c
+    digest: ddcb413ace67bccf7a57a4d2a728e4955ddf9b04afd13a42dd367787690e8457
+    name: products
+    urls:
+    - products-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: 2018-02-21T08:35:01.077841-05:00
+    description: A Helm chart for Kubernetes
+    digest: 5fd303cb25f5cf534a289ab3cd14207119205630e7d42f5b1ff592b0d6214df5
     name: products
     urls:
     - products-0.1.0.tgz
     version: 0.1.0
-generated: 2018-02-20T22:19:48.509478-05:00
+generated: 2018-02-21T08:35:01.077147-05:00
