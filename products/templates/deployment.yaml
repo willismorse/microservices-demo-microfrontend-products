@@ -2,7 +2,7 @@ apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   name: {{ template "chart.fullname" . }}
-  namespace: {{ .Values.namespace }}
+
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
