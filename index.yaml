@@ -1,31 +1,13 @@
 apiVersion: v1
 entries:
-  products:
+  microservices-demo-microfrontend-products-chart:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-02-21T08:40:55.518296-05:00
+    created: 2018-03-10T10:37:39.166806-05:00
     description: A Helm chart for Kubernetes
-    digest: 1f4c5d5338f4fa1d73c44768d8bb3a05233316ff0503c29fe28bb5de6c628221
-    name: products
+    digest: 1ba25fee651ed65e6114fc5c358f69602de2699eb17b63e608acd8fc96f9b4c4
+    name: microservices-demo-microfrontend-products-chart
     urls:
-    - products-0.1.2.tgz
+    - microservices-demo-microfrontend-products-chart-0.1.2.tgz
     version: 0.1.2
-  - apiVersion: v1
-    appVersion: "1.0"
-    created: 2018-02-21T08:40:55.517964-05:00
-    description: A Helm chart for Kubernetes
-    digest: dc00ad6449eab36728c7a3a9117bea2cf5c0bac84b1d7661a367a9741cd1daba
-    name: products
-    urls:
-    - products-0.1.1.tgz
-    version: 0.1.1
-  - apiVersion: v1
-    appVersion: "1.0"
-    created: 2018-02-21T08:40:55.517663-05:00
-    description: A Helm chart for Kubernetes
-    digest: 5fd303cb25f5cf534a289ab3cd14207119205630e7d42f5b1ff592b0d6214df5
-    name: products
-    urls:
-    - products-0.1.0.tgz
-    version: 0.1.0
-generated: 2018-02-21T08:40:55.517056-05:00
+generated: 2018-03-10T10:37:39.166099-05:00

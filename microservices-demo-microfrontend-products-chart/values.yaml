@@ -1,0 +1,44 @@
+# Default values for chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# By default, Helm will auto-generate a single unique name 
+# for everything that it creates from your chart. This generated 
+# name will be built from your chart name + a random phrase such 
+# as "furry-wombat". Helm does this because it assumes that you will 
+# want to install multiple copies of your chart, and every instance 
+# of your chart will need a name that is unique within the cluster, 
+# not just the namespace. This random name generator is just a convenience.
+# This is a handy feature, but in our case we will only have one instance
+# of the products. So the random naming bit just adds confusion.
+# This override value will disable Helm's unique name generation feature.  
+fullnameOverride: "products"
+
+replicaCount: 1
+
+image:
+  repository: willismorse/microservices-demo-microfrontend-products
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: NodePort
+  port: 8080
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
