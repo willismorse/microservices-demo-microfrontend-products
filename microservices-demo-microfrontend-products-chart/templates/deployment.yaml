@@ -23,11 +23,11 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /products/liveness
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /products/readiness
               port: http
           resources:
 {{ toYaml .Values.resources | indent 12 }}
