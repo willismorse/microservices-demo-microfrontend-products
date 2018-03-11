@@ -1,10 +1,20 @@
 import * as React from 'react';
 import './App.css';
+import {CatalogData, CatalogueResponse} from './CatalogueResponse';
 
 const logo = require('./logo.svg');
 
-class App extends React.Component {
-  render() {
+class App extends React.Component<Props, State> {
+
+
+    componentDidMount(): void {
+        let promise = CatalogueResponse.loadCatalogueData();
+        promise.then(catalogResponse => {
+            this.setCatalogData(catalogResponse.catalogData);
+        })
+    }
+
+    render() {
     return (
       <div className="App">
         <header className="App-header">
@@ -14,6 +24,12 @@ class App extends React.Component {
       </div>
     );
   }
+
+    private setCatalogData(inCatalogData: CatalogData) {
+        this.setState( {
+            catalogData: inCatalogData
+        });
+    }
 }
 
 export default App;
