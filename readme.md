@@ -8,3 +8,8 @@ docker push willismorse/microservices-demo-microfrontend-products:latest
 
 helm package microservices-demo-microfrontend-products-chart
 helm repo index . 
+
+
+# Telepresence
+cd <project-folder>
+telepresence --swap-deployment products --expose 8080 --run yarn start
