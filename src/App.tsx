@@ -4,14 +4,21 @@ import {CatalogData, CatalogueResponse} from './CatalogueResponse';
 
 const logo = require('./logo.svg');
 
-class App extends React.Component<Props, State> {
+interface AppState {
+    catalogData: CatalogData;
+}
+
+interface AppProps {
+}
+ 
+class App extends React.Component<AppProps, AppState> {
 
 
     componentDidMount(): void {
-        let promise = CatalogueResponse.loadCatalogueData();
+        let promise = CatalogueResponse.loadCatalogueData(`http://192.168.99.100/catalogue`);
         promise.then(catalogResponse => {
             this.setCatalogData(catalogResponse.catalogData);
-        })
+        });
     }
 
     render() {

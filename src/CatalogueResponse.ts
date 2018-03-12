@@ -73,9 +73,8 @@ export class CatalogueResponse {
      *
      * @returns {Promise<CatalogueResponse>}
      */
-    static loadCatalogueData(): Promise<CatalogueResponse> {
+    static loadCatalogueData(url: string): Promise<CatalogueResponse> {
         return new Promise<CatalogueResponse>((resolve, reject) => {
-            let url = `http://192.168.1.100/catalogue/`;
 
             // Note that unlike pretty much every other Javascript network access library, fetch().catch() will only
             // be called when there's a hardcore network error.
@@ -83,6 +82,13 @@ export class CatalogueResponse {
             fetch(url)
                 .then(response => {
                     if (response.ok) {
+                        
+                        // response.text().then(body => {
+                        //     let text = body;
+                        // }).catch( reason => {
+                        //     let escuse = reason;
+                        // });
+
                         response
                             .json()
                             .then(rawData => {
@@ -102,6 +108,7 @@ export class CatalogueResponse {
                                 // If the JSON parsing failed, we end up here
                                 reject(new CatalogDataFormatFailure(reason));
                             });
+
                     } else {
                         // We end up here if the response status code != 200
 
