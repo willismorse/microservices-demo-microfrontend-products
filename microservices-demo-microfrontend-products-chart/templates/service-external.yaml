@@ -1,0 +1,23 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: products-external
+  namespace: microservices-demo
+spec:
+  clusterIP: None
+  ports:
+  - targetPort: 8080
+    port: 80
+
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: products-external
+  namespace: microservices-demo
+subsets:
+- addresses:
+  - ip: 192.168.99.1
+  ports:
+  - port: 8080
