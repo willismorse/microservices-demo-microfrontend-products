@@ -1,39 +1,55 @@
 import * as React from 'react';
 import './App.css';
-import {CatalogData, CatalogueResponse} from './CatalogueResponse';
+import {CatalogEntry, CatalogueResponse} from './CatalogueResponse';
+import {ProductListItem} from './ProductListItem';
 
 const logo = require('./logo.svg');
 
 interface AppState {
-    catalogData: CatalogData;
+    catalogData: CatalogEntry[] | undefined;
 }
 
 interface AppProps {
 }
- 
+
+
 class App extends React.Component<AppProps, AppState> {
 
 
+    constructor(props: AppProps) {
+        super(props);
+
+        this.state = {
+            catalogData: undefined
+        };
+    }
+
     componentDidMount(): void {
-        let promise = CatalogueResponse.loadCatalogueData(`http://192.168.99.100/catalogue`);
+        let promise = CatalogueResponse.loadCatalogueData();
         promise.then(catalogResponse => {
             this.setCatalogData(catalogResponse.catalogData);
         });
     }
 
     render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">This is a React component</h1>
-        </header>
-      </div>
-    );
-  }
+        let listItems;
+        if (this.state.catalogData) {
+            const catalogData = this.state.catalogData;
+            listItems = catalogData.map((catalogEntry) => {
+                    return <ProductListItem key={catalogEntry.id} catalogEntry={catalogEntry}/>;
+                }
+            );
+        }
 
-    private setCatalogData(inCatalogData: CatalogData) {
-        this.setState( {
+        return (
+            <ul>
+                {listItems}
+            </ul>
+        );
+    }
+
+    private setCatalogData(inCatalogData: CatalogEntry[]) {
+        this.setState({
             catalogData: inCatalogData
         });
     }

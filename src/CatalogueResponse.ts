@@ -1,16 +1,13 @@
+
 export interface CatalogEntry {
 
     id: string;
     name: string;
     description: string;
-    imageURL: URL[];
+    imageUrl: string[];
     price: number;
     count: number;
     tag: string[];
-}
-
-export interface CatalogData {
-    catalogEntries: CatalogEntry[];
 }
 
 
@@ -62,7 +59,7 @@ export class CatalogDataFormatFailure implements Failure {
 
 export class CatalogueResponse {
 
-    catalogData: CatalogData;
+    catalogData: CatalogEntry[];
 
 
     /**
@@ -73,63 +70,77 @@ export class CatalogueResponse {
      *
      * @returns {Promise<CatalogueResponse>}
      */
-    static loadCatalogueData(url: string): Promise<CatalogueResponse> {
-        return new Promise<CatalogueResponse>((resolve, reject) => {
+    static loadCatalogueData(): Promise<CatalogueResponse> {
 
-            // Note that unlike pretty much every other Javascript network access library, fetch().catch() will only
-            // be called when there's a hardcore network error.
-            // If the connection is successful, fetch().then() is called, regardless of HTTP status
-            fetch(url)
-                .then(response => {
-                    if (response.ok) {
-                        
-                        // response.text().then(body => {
-                        //     let text = body;
-                        // }).catch( reason => {
-                        //     let escuse = reason;
-                        // });
+/*
+        console.log(process.env);
+        if (process.env.REACT_APP_MOCK === 'yes') {
+            return new Promise<CatalogueResponse>(resolve => {
+                let catalogueResponse = new CatalogueResponse(catalogData_mock);
+                resolve(catalogueResponse);
+            });
+        } else {
+*/
+            return new Promise<CatalogueResponse>((resolve, reject) => {
 
-                        response
-                            .json()
-                            .then(rawData => {
-                                // Note that we are leveraging Javascript->Typescript sloppiness here to pass
-                                // rawData:any in to WeatherData constructor, which requires a type of DarkSkyData.
-                                // Since DarkSkyData is a TS interface, not a class, we can get away with this. Note, of
-                                // course, that we have absolutely no guarantee that the json data will map to our
-                                // interface in any way, and if it doesn't we will get all sorts of run time errors when
-                                // we access it.
-                                // TODO: Replace this with a proper typesafe deserialization mechanism.
-                                // This way we can catch schema violations during import. See, for instance:
-                                //      json2typescript - https://github.com/dhlab-basel/json2typescript
-                                let catalogData = new CatalogueResponse(rawData);
-                                resolve(catalogData);
-                            })
-                            .catch(reason => {
-                                // If the JSON parsing failed, we end up here
-                                reject(new CatalogDataFormatFailure(reason));
-                            });
+                let url = `https://192.168.99.100/catalogue`;
 
-                    } else {
-                        // We end up here if the response status code != 200
+                // Note that unlike pretty much every other Javascript network access library, fetch().catch() will only
+                // be called when there's a hardcore network error.
+                // If the connection is successful, fetch().then() is called, regardless of HTTP status
+                fetch(url)
+                    .then(response => {
+                        if (response.ok) {
 
-                        if (response.status === 403) {
-                            // This generally signifies an incorrect key or other account-related problem
-                            reject(new CatalogAPIAccessFailure());
+                            // response.text().then(body => {
+                            //     let text = body;
+                            // }).catch( reason => {
+                            //     let escuse = reason;
+                            // });
+
+                            response
+                                .json()
+                                .then(rawData => {
+                                    // Note that we are leveraging Javascript->Typescript sloppiness here to pass
+                                    // rawData:any in to WeatherData constructor, which requires a type of DarkSkyData.
+                                    // Since DarkSkyData is a TS interface, not a class, we can get away with this. Note, of
+                                    // course, that we have absolutely no guarantee that the json data will map to our
+                                    // interface in any way, and if it doesn't we will get all sorts of run time errors when
+                                    // we access it.
+                                    // TODO: Replace this with a proper typesafe deserialization mechanism.
+                                    // This way we can catch schema violations during import. See, for instance:
+                                    //      json2typescript - https://github.com/dhlab-basel/json2typescript
+                                    let catalogueResponse = new CatalogueResponse(rawData);
+                                    console.log(catalogueResponse.catalogData);
+                                    resolve(catalogueResponse);
+                                })
+                                .catch(reason => {
+                                    // If the JSON parsing failed, we end up here
+                                    reject(new CatalogDataFormatFailure(reason));
+                                });
+
                         } else {
-                            // For everything else, we will just use a generic failure
-                            reject(new CatalogAPIFailure());
+                            // We end up here if the response status code != 200
+
+                            if (response.status === 403) {
+                                // This generally signifies an incorrect key or other account-related problem
+                                reject(new CatalogAPIAccessFailure());
+                            } else {
+                                // For everything else, we will just use a generic failure
+                                reject(new CatalogAPIFailure());
+                            }
                         }
-                    }
-                })
-                .catch(reason => {
-                    // We only end up here if there's a hardcode networking error (like no connection
-                    // or timeout or something)
-                    reject(new NetworkFailure(reason));
-                });
-        });
+                    })
+                    .catch(reason => {
+                        // We only end up here if there's a hardcode networking error (like no connection
+                        // or timeout or something)
+                        reject(new NetworkFailure(reason));
+                    });
+            });
+        // }
     }
 
-    constructor(catalogData: CatalogData) {
+    constructor(catalogData: CatalogEntry[]) {
         this.catalogData = catalogData;
     }
 
