@@ -2,24 +2,27 @@
   "name": "microservices-demo-microfrontend-products",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-scripts-ts": "2.13.0"
-  },
   "scripts": {
-    "start": "react-scripts-ts start",
+    "build": "./node_modules/.bin/webpack --mode development --watch",
     "serve": "node server.js",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "mock": "REACT_APP_MOCK=yes node server.js"
+  },
+  "dependencies": {
+    "@types/react": "^16.0.40",
+    "@types/react-dom": "^16.0.4",
+    "express": "^4.16.3",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
   },
   "devDependencies": {
-    "@types/jest": "^22.1.2",
-    "@types/node": "^4.0.36",
-    "@types/react": "^16.0.36",
-    "@types/react-dom": "^16.0.3",
-    "typescript": "^2.7.1"
-  },
-  "homepage": "/products/"
+    "awesome-typescript-loader": "^4.0.1",
+    "css-loader": "^0.28.10",
+    "source-map-loader": "^0.2.3",
+    "style-loader": "^0.20.3",
+    "ts-loader": "^4.0.1",
+    "typescript": "^2.7.2",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.11"
+  }
 }
