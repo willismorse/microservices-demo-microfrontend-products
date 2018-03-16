@@ -42,7 +42,7 @@ class App extends React.Component<AppProps, AppState> {
         }
 
         return (
-            <ul>
+            <ul className="products">
                 {listItems}
             </ul>
         );

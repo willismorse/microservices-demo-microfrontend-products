@@ -19,12 +19,12 @@ export class ProductListItem extends React.Component<ProductListItemProps, Produ
 
         return (
             <div className="products-item">
-                <h1>{this.props.catalogEntry.name}</h1>
-                <p>{this.props.catalogEntry.description}</p>
-                <p>{this.props.catalogEntry.price}</p>
+                <h1 className="products-item-name">{this.props.catalogEntry.name}</h1>
+                <p className="products-item-description">{this.props.catalogEntry.description}</p>
+                <p className="products-item-price">${this.props.catalogEntry.price}</p>
                 {
                     this.props.catalogEntry.imageUrl.map(value => {
-                        return <img src={value} />
+                        return <img className="products-item-image" src={value} />
                     })
                 }
 
